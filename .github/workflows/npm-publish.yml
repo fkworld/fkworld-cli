@@ -1,0 +1,33 @@
+name: npm-publish
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: prepare nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: prepare pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 8.3.1
+
+      - name: build
+        run: pnpm install && pnpm run build
+
+      - name: publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
