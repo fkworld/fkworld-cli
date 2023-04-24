@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chalk from 'chalk'
 import { program } from 'commander'
 import fsExtra from 'fs-extra'
