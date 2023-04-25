@@ -1,0 +1,9 @@
+{
+	"cSpell.words": ["commitlint", "vite"],
+	"editor.codeActionsOnSave": {
+		"quickfix.rome": true,
+		"source.organizeImports.rome": true
+	},
+	"editor.defaultFormatter": "rome.rome",
+	"editor.formatOnSave": true
+}
