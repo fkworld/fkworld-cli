@@ -6,8 +6,12 @@ import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import prompts from "prompts";
 
+const FILE_PATH = fileURLToPath(import.meta.url);
 const CWD_PATH = process.cwd();
-const TEMPLATES_PATH = resolve(fileURLToPath(import.meta.url), "../templates");
+const TEMPLATES_PATH = resolve(FILE_PATH, "../templates");
+const PACKAGE_JSON_PATH = resolve(FILE_PATH, "../package.json");
+
+program.version(fsExtra.readJSONSync(PACKAGE_JSON_PATH).version);
 
 program
   .command("create")
