@@ -24,7 +24,7 @@
     "url": "https://github.com/fkworld/fkworld-cli/issues"
   },
   "scripts": {
-    "prepare": "husky install",
+    "preinstall": "husky install",
     "test": "node ./fkworld-cli.js",
     "lint:commitlint": "commitlint",
     "clean": "rm -rf templates/*/node_modules"
