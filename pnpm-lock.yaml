@@ -16,16 +16,6 @@ importers:
       prompts:
         specifier: ^2.4.2
         version: 2.4.2
-    devDependencies:
-      '@commitlint/cli':
-        specifier: ^17.6.1
-        version: 17.6.1
-      '@commitlint/config-conventional':
-        specifier: ^17.6.1
-        version: 17.6.1
-      husky:
-        specifier: ^8.0.3
-        version: 8.0.3
 
   templates/template-pnpm-monorepo:
     dependencies:
