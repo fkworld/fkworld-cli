@@ -3,11 +3,10 @@
   "version": "1.0.17",
   "type": "module",
   "bin": {
-    "fkworld-cli": "./dist/fkworld-cli.js"
+    "fkworld-cli": "./fkworld-cli.js"
   },
   "files": [
-    "src",
-    "dist",
+    "fkworld-cli.js",
     "templates/*"
   ],
   "author": "fkworld",
@@ -26,21 +25,14 @@
   },
   "scripts": {
     "prepare": "husky install",
-    "build": "tsc",
-    "test": "tsc && node ./dist/fkworld-cli.js",
-    "lint:lint-staged": "lint-staged",
+    "test": "node ./fkworld-cli.js",
     "lint:commitlint": "commitlint",
     "clean": "rm -rf templates/*/node_modules"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.1",
     "@commitlint/config-conventional": "^17.6.1",
-    "@types/fs-extra": "^11.0.1",
-    "@types/prompts": "^2.4.4",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.2.1",
-    "prettier": "^2.8.7",
-    "typescript": "^5.0.4"
+    "husky": "^8.0.3"
   },
   "dependencies": {
     "chalk": "^5.2.0",
