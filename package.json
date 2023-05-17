@@ -1,6 +1,6 @@
 {
   "name": "fkworld-cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "bin": {
     "fkworld-cli": "./fkworld-cli.js"
