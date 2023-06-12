@@ -7,7 +7,8 @@
   },
   "files": [
     "fkworld-cli.js",
-    "templates/*"
+    "templates/*",
+    "template-files/*"
   ],
   "author": "fkworld",
   "license": "MIT",

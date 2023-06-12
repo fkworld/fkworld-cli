@@ -9,6 +9,7 @@ import prompts from "prompts";
 const FILE_PATH = fileURLToPath(import.meta.url);
 const CWD_PATH = process.cwd();
 const TEMPLATES_PATH = resolve(FILE_PATH, "../templates");
+const TEMPLATE_FILES_PATH = resolve(FILE_PATH, "../template-files");
 const PACKAGE_JSON_PATH = resolve(FILE_PATH, "../package.json");
 
 program.version(fsExtra.readJSONSync(PACKAGE_JSON_PATH).version);
@@ -55,6 +56,14 @@ export async function create() {
   }
 
   fsExtra.copySync(sourcePath, distPath);
+
+  // .gitignore 文件不会被上传至 npm，所以只能上传 gitignore 文件，创建的时候重命名一下
+  // See: https://github.com/npm/npm/issues/1862
+  fsExtra.copyFileSync(
+    resolve(TEMPLATE_FILES_PATH, "gitignore"),
+    resolve(distPath, ".gitignore")
+  );
+
   log("success");
 }
 
