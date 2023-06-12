@@ -11,12 +11,15 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:react-hooks/recommended',
     'prettier',
   ],
   plugins: ['@typescript-eslint', 'simple-import-sort', 'import', 'react'],
   rules: {
     // 使用三等号
     eqeqeq: 'error',
+    // 禁止无效的 rename
+    'no-useless-rename': 'error',
     // import/export 排序，参考 https://github.com/lydell/eslint-plugin-simple-import-sort#example-configuration
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
@@ -27,6 +30,8 @@ module.exports = {
     'import/no-default-export': 'error',
     // react 组件自闭合
     'react/self-closing-comp': 'error',
+    // react hooks 的依赖项检查
+    'react-hooks/exhaustive-deps': 'error',
   },
   overrides: [
     // 在 index 文件中禁用代码逻辑，只允许使用 import/export 语句
