@@ -7,10 +7,11 @@ import { fileURLToPath } from "node:url";
 import prompts from "prompts";
 
 const FILE_PATH = fileURLToPath(import.meta.url);
+const ROOT_PATH = resolve(FILE_PATH, "../");
 const CWD_PATH = process.cwd();
-const TEMPLATES_PATH = resolve(FILE_PATH, "../templates");
-const TEMPLATE_FILES_PATH = resolve(FILE_PATH, "../template-files");
-const PACKAGE_JSON_PATH = resolve(FILE_PATH, "../package.json");
+const TEMPLATES_PATH = resolve(ROOT_PATH, "../templates");
+const TEMPLATE_FILES_PATH = resolve(ROOT_PATH, "../template-files");
+const PACKAGE_JSON_PATH = resolve(ROOT_PATH, "../package.json");
 
 program.version(fsExtra.readJSONSync(PACKAGE_JSON_PATH).version);
 
