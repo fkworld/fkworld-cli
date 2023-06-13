@@ -15,9 +15,10 @@ export async function add(options: AddOptions) {
       type: "select",
       message: "选择工程化模块",
       choices: [
-        { value: ModuleType.gitignore, title: "gitignore" },
-        { value: ModuleType.gitattributes, title: "gitattributes" },
-      ],
+        ModuleType.gitignore,
+        ModuleType.gitattributes,
+        ModuleType.editorconfig,
+      ].map((v) => ({ value: v, title: v })),
       initial: 0,
     },
   ]);
@@ -29,6 +30,8 @@ export async function add(options: AddOptions) {
     case ModuleType.gitattributes:
       addGitattributes(options);
       break;
+    case ModuleType.editorconfig:
+      addEditorconfig(options);
     default:
       console.log(chalk.red("添加失败！模块不存在！"));
       return;
@@ -38,37 +41,44 @@ export async function add(options: AddOptions) {
 const enum ModuleType {
   gitignore = "gitignore",
   gitattributes = "gitattributes",
+  editorconfig = "editorconfig",
 }
 
 function addGitignore(options: AddOptions) {
-  if (!options.force && fsExtra.existsSync(resolve(CWD_PATH, ".gitignore"))) {
-    console.log(chalk.red("添加失败！.gitignore 文件已存在！"));
-    return;
-  }
-
-  // .gitignore 文件不会被上传至 npm，所以只能上传 gitignore 文件，创建的时候重命名一下
-  // See: https://github.com/npm/npm/issues/1862
-  fsExtra.copyFileSync(
-    resolve(TEMPLATE_FILES_PATH, "gitignore"),
-    resolve(CWD_PATH, ".gitignore")
-  );
-
-  console.log(chalk.green("添加 gitignore 模块成功！"));
+  baseCopyFile(options, "gitignore", ".gitignore");
+  baseSuccessLog(ModuleType.gitignore);
 }
 
 function addGitattributes(options: AddOptions) {
-  if (
-    !options.force &&
-    fsExtra.existsSync(resolve(CWD_PATH, ".gitattributes"))
-  ) {
-    console.log(chalk.red("添加失败！.gitattributes 文件已存在！"));
-    return;
+  baseCopyFile(options, ".gitattributes", ".gitattributes");
+  baseSuccessLog(ModuleType.gitattributes);
+}
+
+function addEditorconfig(options: AddOptions) {
+  baseCopyFile(options, ".editorconfig", ".editorconfig");
+  baseSuccessLog(ModuleType.editorconfig);
+}
+
+function baseCopyFile(
+  options: AddOptions,
+  sourceFilename: string,
+  targetFilename: string = sourceFilename
+) {
+  if (!fsExtra.existsSync(resolve(TEMPLATE_FILES_PATH, sourceFilename))) {
+    console.log(chalk.red(`添加失败！源文件 ${sourceFilename} 文件不存在！`));
+    return false;
+  }
+  if (!options.force && fsExtra.existsSync(resolve(CWD_PATH, targetFilename))) {
+    console.log(chalk.red(`添加失败！目标文件 ${targetFilename} 文件已存在！`));
+    return false;
   }
 
   fsExtra.copyFileSync(
-    resolve(TEMPLATE_FILES_PATH, ".gitattributes"),
-    resolve(CWD_PATH, ".gitattributes")
+    resolve(TEMPLATE_FILES_PATH, sourceFilename),
+    resolve(CWD_PATH, targetFilename)
   );
+}
 
-  console.log(chalk.green("添加 gitattributes 模块成功！"));
+function baseSuccessLog(moduleName: string) {
+  console.log(chalk.green(`添加 ${moduleName} 模块成功！`));
 }
