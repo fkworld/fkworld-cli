@@ -4,8 +4,5 @@
 # node
 node_modules
 
-# vitest
-/coverage
-
 # project
 /dist
