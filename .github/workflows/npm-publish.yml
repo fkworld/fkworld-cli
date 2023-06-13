@@ -19,6 +19,9 @@ jobs:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
 
+      - name: build
+        run: npx tsc
+
       - name: publish
         run: npm publish
         env:
