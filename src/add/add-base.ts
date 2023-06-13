@@ -1,23 +1,25 @@
-import fsExtra from "fs-extra";
-import { merge } from "lodash-es";
 import { resolve } from "node:path";
 
+import fsExtra from "fs-extra";
+import { merge } from "lodash-es";
+
 import { CWD_PATH, TEMPLATE_FILES_PATH } from "../config.js";
+import { addCommitlint } from "./add-commitlint.js";
 import { addEditorconfig } from "./add-editorconfig.js";
+import { addEslintPrettier } from "./add-eslint-prettier.js";
 import { addGitattributes } from "./add-gitattributes.js";
 import { addGitignore } from "./add-gitignore.js";
 import { addHusky } from "./add-husky.js";
+import { addLintstaged } from "./add-lintstaged.js";
 import { addLslint } from "./add-lslint.js";
 import { addNpmrc } from "./add-npmrc.js";
-import { addCommitlint } from "./add-commitlint.js";
-import { addLintstaged } from "./add-lintstaged.js";
 import { addTypescript } from "./add-typescript.js";
 
 export type AddOptions = {
   force: boolean;
 };
 
-export const enum AddType {
+export enum AddType {
   gitignore = "gitignore",
   gitattributes = "gitattributes",
   editorconfig = "editorconfig",
@@ -27,6 +29,7 @@ export const enum AddType {
   commitlint = "commitlint",
   lintstaged = "lintstaged",
   typescript = "typescript",
+  eslintPrettier = "eslintPrettier",
 }
 
 export const ADD_TYPES = [
@@ -39,6 +42,7 @@ export const ADD_TYPES = [
   AddType.commitlint,
   AddType.lintstaged,
   AddType.typescript,
+  AddType.eslintPrettier,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
@@ -51,6 +55,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.commitlint]: addCommitlint,
   [AddType.lintstaged]: addLintstaged,
   [AddType.typescript]: addTypescript,
+  [AddType.eslintPrettier]: addEslintPrettier,
 };
 
 export function baseCopyFile(
