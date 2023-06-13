@@ -1,4 +1,3 @@
-import chalk from "chalk";
 import fsExtra from "fs-extra";
 import { resolve } from "node:path";
 
@@ -6,6 +5,7 @@ import { CWD_PATH, TEMPLATE_FILES_PATH } from "../config.js";
 import { addEditorconfig } from "./add-editorconfig.js";
 import { addGitattributes } from "./add-gitattributes.js";
 import { addGitignore } from "./add-gitignore.js";
+import { addNpmrc } from "./add-npmrc.js";
 
 export type AddOptions = {
   force: boolean;
@@ -15,18 +15,21 @@ export const enum AddType {
   gitignore = "gitignore",
   gitattributes = "gitattributes",
   editorconfig = "editorconfig",
+  npmrc = "npmrc",
 }
 
 export const ADD_TYPES = [
   AddType.gitignore,
   AddType.gitattributes,
   AddType.editorconfig,
+  AddType.npmrc,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.gitignore]: addGitignore,
   [AddType.gitattributes]: addGitattributes,
   [AddType.editorconfig]: addEditorconfig,
+  [AddType.npmrc]: addNpmrc,
 };
 
 export function baseCopyFile(
