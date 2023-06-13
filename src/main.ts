@@ -2,7 +2,7 @@
 
 import { program } from "commander";
 
-import { add } from "./add.js";
+import { AddOptions, add } from "./add.js";
 import { create } from "./create.js";
 import { VERSION } from "./config.js";
 
@@ -16,6 +16,7 @@ program
 program
   .command("add")
   .description("添加工程化模块")
-  .action(() => add());
+  .option("-f, --force", "强制创建文件")
+  .action((options: AddOptions) => add(options));
 
 program.parse(process.argv);
