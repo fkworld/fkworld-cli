@@ -20,7 +20,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
 
       - name: build
-        run: npx tsc
+        run: npm i -g typescript && tsc
 
       - name: publish
         run: npm publish
