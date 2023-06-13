@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import chalk from "chalk";
-import { merge } from "lodash-es";
+import { merge } from "lodash";
 import prompts from "prompts";
 
 import { CWD_PATH, TEMPLATE_FILES_PATH } from "./config.js";
