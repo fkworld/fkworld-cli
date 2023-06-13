@@ -1,9 +1,10 @@
-import fsExtra from "fs-extra";
 import { resolve } from "node:path";
-import prompts from "prompts";
-import chalk from "chalk";
 
-import { CWD_PATH, TEMPLATES_PATH, TEMPLATE_FILES_PATH } from "./config.js";
+import chalk from "chalk";
+import fsExtra from "fs-extra";
+import prompts from "prompts";
+
+import { CWD_PATH, TEMPLATE_FILES_PATH, TEMPLATES_PATH } from "./config.js";
 
 export async function create() {
   const templates = fsExtra.readdirSync(TEMPLATES_PATH);
@@ -40,7 +41,7 @@ export async function create() {
   // See: https://github.com/npm/npm/issues/1862
   fsExtra.copyFileSync(
     resolve(TEMPLATE_FILES_PATH, "gitignore"),
-    resolve(distPath, ".gitignore")
+    resolve(distPath, ".gitignore"),
   );
 
   console.log(chalk.green("模版创建成功"));

@@ -4,6 +4,10 @@ export function addEslintPrettier(options: AddOptions) {
   baseCopyFile(options, ".prettierrc.json");
   baseCopyFile(options, ".eslintrc.json");
   baseWritePackageJson(options, {
+    scripts: {
+      "lint:eslint": "eslint --fix",
+      "lint:prettier": "prettier --write",
+    },
     devDependencies: {
       "@typescript-eslint/eslint-plugin": "^5",
       "@typescript-eslint/parser": "^5",

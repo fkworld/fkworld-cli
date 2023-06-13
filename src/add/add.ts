@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import prompts from "prompts";
 
-import { AddOptions, ADD_ACTIONS, ADD_TYPES, AddType } from "./add-base.js";
+import { ADD_ACTIONS, ADD_TYPES, AddOptions, AddType } from "./add-base.js";
 
 export async function add(options: AddOptions) {
   const { moduleName = "" } = await prompts([

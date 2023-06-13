@@ -61,7 +61,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
 export function baseCopyFile(
   options: AddOptions,
   sourceFilename: string,
-  targetFilename: string = sourceFilename
+  targetFilename: string = sourceFilename,
 ) {
   if (!fsExtra.existsSync(resolve(TEMPLATE_FILES_PATH, sourceFilename))) {
     throw new Error(`源文件 ${sourceFilename} 文件不存在！`);
@@ -72,7 +72,7 @@ export function baseCopyFile(
 
   fsExtra.copySync(
     resolve(TEMPLATE_FILES_PATH, sourceFilename),
-    resolve(CWD_PATH, targetFilename)
+    resolve(CWD_PATH, targetFilename),
   );
 }
 
