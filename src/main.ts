@@ -2,9 +2,10 @@
 
 import { program } from "commander";
 
-import { AddOptions, add } from "./add.js";
-import { create } from "./create.js";
+import { AddOptions } from "./add/add-base.js";
+import { add } from "./add/add.js";
 import { VERSION } from "./config.js";
+import { create } from "./create.js";
 
 program.version(VERSION);
 
