@@ -1,4 +1,5 @@
 import fsExtra from "fs-extra";
+import { merge } from "lodash-es";
 import { resolve } from "node:path";
 
 import { CWD_PATH, TEMPLATE_FILES_PATH } from "../config.js";
@@ -6,6 +7,7 @@ import { addEditorconfig } from "./add-editorconfig.js";
 import { addGitattributes } from "./add-gitattributes.js";
 import { addGitignore } from "./add-gitignore.js";
 import { addNpmrc } from "./add-npmrc.js";
+import { addHusky } from "./add-husky.js";
 
 export type AddOptions = {
   force: boolean;
@@ -16,6 +18,7 @@ export const enum AddType {
   gitattributes = "gitattributes",
   editorconfig = "editorconfig",
   npmrc = "npmrc",
+  husky = "husky",
 }
 
 export const ADD_TYPES = [
@@ -23,6 +26,7 @@ export const ADD_TYPES = [
   AddType.gitattributes,
   AddType.editorconfig,
   AddType.npmrc,
+  AddType.husky,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
@@ -30,6 +34,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.gitattributes]: addGitattributes,
   [AddType.editorconfig]: addEditorconfig,
   [AddType.npmrc]: addNpmrc,
+  [AddType.husky]: addHusky,
 };
 
 export function baseCopyFile(
@@ -44,8 +49,15 @@ export function baseCopyFile(
     throw new Error(`目标文件 ${targetFilename} 文件已存在！`);
   }
 
-  fsExtra.copyFileSync(
+  fsExtra.copySync(
     resolve(TEMPLATE_FILES_PATH, sourceFilename),
     resolve(CWD_PATH, targetFilename)
   );
+}
+
+export function baseWritePackageJson(options: AddOptions, object: any) {
+  const packageJsonPath = resolve(CWD_PATH, "package.json");
+  const packageJson = fsExtra.readJsonSync(packageJsonPath);
+  const newPackageJson = merge(packageJson, object);
+  fsExtra.writeJsonSync(packageJsonPath, newPackageJson, { spaces: 2 });
 }
