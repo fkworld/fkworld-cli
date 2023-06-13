@@ -12,30 +12,32 @@ export type AddOptions = {
 };
 
 export async function add(options: AddOptions) {
-  const { moduleName = "" } = await prompts([
+  const res = await prompts([
     {
-      name: "moduleName",
-      type: "select",
+      name: "moduleNames",
+      type: "multiselect",
       message: "选择工程化模块",
       choices: Object.keys(ADD_ACTIONS).map((v) => ({ value: v, title: v })),
       initial: 0,
     },
   ]);
 
-  try {
-    const action = ADD_ACTIONS[moduleName as AddType];
-    if (!action) {
-      throw new Error(`${moduleName} 模块不存在！`);
+  res.moduleNames.forEach((moduleName: string) => {
+    try {
+      const action = ADD_ACTIONS[moduleName as AddType];
+      if (!action) {
+        throw new Error(`${moduleName} 模块不存在！`);
+      }
+      action.overrideFiles.forEach((filename) => baseCopy(options, filename));
+      baseWritePackageJson(options, action.overridePackageJsonInfo);
+      console.log(chalk.green(`添加 ${moduleName} 模块成功！`));
+    } catch (error) {
+      console.log(chalk.red(`添加失败！${(error as Error).message}`));
     }
-    action.overrideFiles.forEach((filename) => baseCopy(options, filename));
-    baseWritePackageJson(options, action.overridePackageJsonInfo);
-    console.log(chalk.green(`添加 ${moduleName} 模块成功！`));
-  } catch (error) {
-    console.log(chalk.red(`添加失败！${(error as Error).message}`));
-  }
+  });
 }
 
-enum AddType {
+const enum AddType {
   commitlint = "commitlint",
   editorconfig = "editorconfig",
   eslintPrettier = "eslintPrettier",
