@@ -38,16 +38,21 @@ export async function add(options: AddOptions) {
 }
 
 const enum AddType {
-  commitlint = "commitlint",
   editorconfig = "editorconfig",
-  eslintPrettier = "eslintPrettier",
+
   gitattributes = "gitattributes",
   gitignore = "gitignore",
-  husky = "husky",
-  lintstaged = "lintstaged",
-  lslint = "lslint",
+
   npmrc = "npmrc",
+
+  husky = "husky",
+  commitlint = "commitlint",
+  lslint = "lslint",
+  lintstaged = "lintstaged",
+
   typescript = "typescript",
+
+  eslintPrettier = "eslintPrettier",
 }
 
 const ADD_ACTIONS: Record<
@@ -69,8 +74,8 @@ const ADD_ACTIONS: Record<
   [AddType.npmrc]: {
     overrideFiles: [".npmrc"],
   },
-  [AddType.lslint]: {
-    overrideFiles: [".ls-lint.yml"],
+  [AddType.husky]: {
+    overrideFiles: [".husky"],
     overridePackageJsonInfo: {
       scripts: {
         prepare: "husky install",
@@ -80,8 +85,16 @@ const ADD_ACTIONS: Record<
       },
     },
   },
-  [AddType.husky]: {
-    overrideFiles: [".husky"],
+  [AddType.lslint]: {
+    overrideFiles: [".ls-lint.yml"],
+    overridePackageJsonInfo: {
+      scripts: {
+        "lint:ls-lint": "ls-lint",
+      },
+      devDependencies: {
+        "@ls-lint/ls-lint": "^2",
+      },
+    },
   },
   [AddType.commitlint]: {
     overrideFiles: [".commitlintrc.cjs"],

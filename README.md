@@ -28,4 +28,15 @@ npx fkworld-cli create
 
 ### `fkworld-cli add`
 
-增加工程化模块。还在开发中...
+支持：
+
+1. editorconfig
+2. gitattributes
+3. gitignore
+4. npmrc
+5. husky
+6. commitlint
+7. lslint
+8. lintstaged
+9. typescript
+10. eslintPrettier
