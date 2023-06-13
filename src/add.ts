@@ -13,7 +13,7 @@ export async function add(options: AddOptions) {
     {
       name: "moduleName",
       type: "select",
-      message: "选择模版",
+      message: "选择工程化模块",
       choices: [
         { value: ModuleType.gitignore, title: "gitignore" },
         { value: ModuleType.gitattributes, title: "gitattributes" },
