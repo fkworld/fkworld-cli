@@ -28,6 +28,7 @@
   "scripts": {
     "prepare": "husky install",
     "test": "rm -rf dist && tsc && node ./dist/main.js",
+    "build": "tsc",
     "clean": "rm -rf templates/*/node_modules",
     "lint:ls-lint": "ls-lint",
     "lint:commitlint": "commitlint",

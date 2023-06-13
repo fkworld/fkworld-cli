@@ -19,8 +19,13 @@ jobs:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
 
+      - name: prepare pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.6.2
+
       - name: build
-        run: npm i -g typescript && tsc
+        run: pnpm install --ignore-scripts && pnpm run build
 
       - name: publish
         run: npm publish
