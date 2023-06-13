@@ -11,6 +11,7 @@ import { addLslint } from "./add-lslint.js";
 import { addNpmrc } from "./add-npmrc.js";
 import { addCommitlint } from "./add-commitlint.js";
 import { addLintstaged } from "./add-lintstaged.js";
+import { addTypescript } from "./add-typescript.js";
 
 export type AddOptions = {
   force: boolean;
@@ -25,6 +26,7 @@ export const enum AddType {
   lslint = "lslint",
   commitlint = "commitlint",
   lintstaged = "lintstaged",
+  typescript = "typescript",
 }
 
 export const ADD_TYPES = [
@@ -36,6 +38,7 @@ export const ADD_TYPES = [
   AddType.lslint,
   AddType.commitlint,
   AddType.lintstaged,
+  AddType.typescript,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
@@ -47,6 +50,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.lslint]: addLslint,
   [AddType.commitlint]: addCommitlint,
   [AddType.lintstaged]: addLintstaged,
+  [AddType.typescript]: addTypescript,
 };
 
 export function baseCopyFile(
