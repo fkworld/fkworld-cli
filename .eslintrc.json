@@ -8,12 +8,9 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime",
-    "plugin:react-hooks/recommended",
     "prettier"
   ],
-  "plugins": ["@typescript-eslint", "simple-import-sort", "import", "react"],
+  "plugins": ["@typescript-eslint", "simple-import-sort", "import"],
   "rules": {
     // 使用三等号
     "eqeqeq": "error",
@@ -26,11 +23,7 @@
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
     // 禁用 export default
-    "import/no-default-export": "error",
-    // react 组件自闭合
-    "react/self-closing-comp": "error",
-    // react hooks 的依赖项检查
-    "react-hooks/exhaustive-deps": "error"
+    "import/no-default-export": "error"
   },
   "overrides": [
     // 在 index 文件中禁用代码逻辑，只允许使用 import/export 语句
