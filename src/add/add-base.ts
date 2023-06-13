@@ -9,6 +9,7 @@ import { addGitignore } from "./add-gitignore.js";
 import { addHusky } from "./add-husky.js";
 import { addLslint } from "./add-lslint.js";
 import { addNpmrc } from "./add-npmrc.js";
+import { addCommitlint } from "./add-commitlint.js";
 
 export type AddOptions = {
   force: boolean;
@@ -21,6 +22,7 @@ export const enum AddType {
   npmrc = "npmrc",
   husky = "husky",
   lslint = "lslint",
+  commitlint = "commitlint",
 }
 
 export const ADD_TYPES = [
@@ -30,6 +32,7 @@ export const ADD_TYPES = [
   AddType.npmrc,
   AddType.husky,
   AddType.lslint,
+  AddType.commitlint,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
@@ -39,6 +42,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.npmrc]: addNpmrc,
   [AddType.husky]: addHusky,
   [AddType.lslint]: addLslint,
+  [AddType.commitlint]: addCommitlint,
 };
 
 export function baseCopyFile(
