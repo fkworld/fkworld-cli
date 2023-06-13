@@ -1,11 +1,12 @@
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import chalk from "chalk";
-import fsExtra from "fs-extra";
 import { merge } from "lodash-es";
 import prompts from "prompts";
 
 import { CWD_PATH, TEMPLATE_FILES_PATH } from "./config.js";
+import { copySync } from "./utils.js";
 
 export type AddOptions = {
   force: boolean;
@@ -156,14 +157,14 @@ function baseCopy(options: AddOptions, filename: string) {
   const sourceFilename = "template_" + filename;
   const targetFilename = filename;
 
-  if (!fsExtra.existsSync(resolve(TEMPLATE_FILES_PATH, sourceFilename))) {
+  if (!existsSync(resolve(TEMPLATE_FILES_PATH, sourceFilename))) {
     throw new Error(`源文件 ${sourceFilename} 文件不存在！`);
   }
-  if (!options.force && fsExtra.existsSync(resolve(CWD_PATH, targetFilename))) {
+  if (!options.force && existsSync(resolve(CWD_PATH, targetFilename))) {
     throw new Error(`目标文件 ${targetFilename} 文件已存在！`);
   }
 
-  fsExtra.copySync(
+  copySync(
     resolve(TEMPLATE_FILES_PATH, sourceFilename),
     resolve(CWD_PATH, targetFilename),
   );
@@ -171,10 +172,11 @@ function baseCopy(options: AddOptions, filename: string) {
 
 function baseWritePackageJson(
   options: AddOptions,
-  overridePackageJsonInfo: unknown,
+  overridePackageJsonObj: unknown,
 ) {
   const packageJsonPath = resolve(CWD_PATH, "package.json");
-  const packageJson = fsExtra.readJsonSync(packageJsonPath);
-  const newPackageJson = merge(packageJson, overridePackageJsonInfo);
-  fsExtra.writeJsonSync(packageJsonPath, newPackageJson, { spaces: 2 });
+  const packageJsonString = readFileSync(packageJsonPath, "utf-8");
+  const packageJsonObj = JSON.parse(packageJsonString);
+  const newPackageJson = merge(packageJsonObj, overridePackageJsonObj);
+  writeFileSync(packageJsonPath, JSON.stringify(newPackageJson, null, 2));
 }
