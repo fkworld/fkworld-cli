@@ -10,6 +10,7 @@ import { addHusky } from "./add-husky.js";
 import { addLslint } from "./add-lslint.js";
 import { addNpmrc } from "./add-npmrc.js";
 import { addCommitlint } from "./add-commitlint.js";
+import { addLintstaged } from "./add-lintstaged.js";
 
 export type AddOptions = {
   force: boolean;
@@ -23,6 +24,7 @@ export const enum AddType {
   husky = "husky",
   lslint = "lslint",
   commitlint = "commitlint",
+  lintstaged = "lintstaged",
 }
 
 export const ADD_TYPES = [
@@ -33,6 +35,7 @@ export const ADD_TYPES = [
   AddType.husky,
   AddType.lslint,
   AddType.commitlint,
+  AddType.lintstaged,
 ];
 
 export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
@@ -43,6 +46,7 @@ export const ADD_ACTIONS: Record<AddType, (options: AddOptions) => void> = {
   [AddType.husky]: addHusky,
   [AddType.lslint]: addLslint,
   [AddType.commitlint]: addCommitlint,
+  [AddType.lintstaged]: addLintstaged,
 };
 
 export function baseCopyFile(
