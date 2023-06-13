@@ -3,7 +3,7 @@
   "version": "1.5.3",
   "type": "module",
   "bin": {
-    "fkworld-cli": "./src/main.js"
+    "fkworld-cli": "dist/main.js"
   },
   "files": [
     "src/*",
