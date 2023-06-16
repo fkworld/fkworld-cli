@@ -132,7 +132,12 @@ const ADD_ACTIONS: Record<
     },
   },
   [AddType.eslintPrettier]: {
-    overrideFiles: [".eslintrc.json", ".prettierrc.json"],
+    overrideFiles: [
+      ".eslintrc.json",
+      ".eslintignore",
+      ".prettierrc.json",
+      ".prettierignore",
+    ],
     overridePackageJsonInfo: {
       scripts: {
         "lint:eslint": "eslint --fix",
