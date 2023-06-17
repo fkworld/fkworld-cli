@@ -1,4 +1,4 @@
-import HtmlWebpackPlugin from "html-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin"
 
 /** @type {import("webpack").Configuration & {devServer: import("webpack-dev-server").Configuration}} */
 export default {
@@ -20,4 +20,4 @@ export default {
     port: 2077,
     open: true,
   },
-};
+}

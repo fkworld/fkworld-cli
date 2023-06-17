@@ -1,16 +1,16 @@
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
-import { resolve } from "node:path";
+import { existsSync, readFileSync, writeFileSync } from "node:fs"
+import { resolve } from "node:path"
 
-import chalk from "chalk";
-import merge from "lodash/merge.js";
-import prompts from "prompts";
+import chalk from "chalk"
+import merge from "lodash/merge.js"
+import prompts from "prompts"
 
-import { CWD_PATH, TEMPLATE_FILES_PATH } from "./config.js";
-import { copySync } from "./utils.js";
+import { CWD_PATH, TEMPLATE_FILES_PATH } from "./config.js"
+import { copySync } from "./utils.js"
 
 export type AddOptions = {
-  force: boolean;
-};
+  force: boolean
+}
 
 export async function add(options: AddOptions) {
   const res = await prompts([
@@ -21,21 +21,21 @@ export async function add(options: AddOptions) {
       choices: Object.keys(ADD_ACTIONS).map((v) => ({ value: v, title: v })),
       initial: 0,
     },
-  ]);
+  ])
 
   res.moduleNames.forEach((moduleName: string) => {
     try {
-      const action = ADD_ACTIONS[moduleName as AddType];
+      const action = ADD_ACTIONS[moduleName as AddType]
       if (!action) {
-        throw new Error(`${moduleName} 模块不存在！`);
+        throw new Error(`${moduleName} 模块不存在！`)
       }
-      action.overrideFiles.forEach((filename) => baseCopy(options, filename));
-      baseWritePackageJson(options, action.overridePackageJsonInfo);
-      console.log(chalk.green(`添加 ${moduleName} 模块成功！`));
+      action.overrideFiles.forEach((filename) => baseCopy(options, filename))
+      baseWritePackageJson(options, action.overridePackageJsonInfo)
+      console.log(chalk.green(`添加 ${moduleName} 模块成功！`))
     } catch (error) {
-      console.log(chalk.red(`添加失败！${(error as Error).message}`));
+      console.log(chalk.red(`添加失败！${(error as Error).message}`))
     }
-  });
+  })
 }
 
 const enum AddType {
@@ -59,8 +59,8 @@ const enum AddType {
 const ADD_ACTIONS: Record<
   AddType,
   {
-    overrideFiles: string[];
-    overridePackageJsonInfo?: unknown;
+    overrideFiles: string[]
+    overridePackageJsonInfo?: unknown
   }
 > = {
   [AddType.editorconfig]: {
@@ -156,32 +156,32 @@ const ADD_ACTIONS: Record<
       },
     },
   },
-};
+}
 
 function baseCopy(options: AddOptions, filename: string) {
-  const sourceFilename = "template_" + filename;
-  const targetFilename = filename;
+  const sourceFilename = "template_" + filename
+  const targetFilename = filename
 
   if (!existsSync(resolve(TEMPLATE_FILES_PATH, sourceFilename))) {
-    throw new Error(`源文件 ${sourceFilename} 文件不存在！`);
+    throw new Error(`源文件 ${sourceFilename} 文件不存在！`)
   }
   if (!options.force && existsSync(resolve(CWD_PATH, targetFilename))) {
-    throw new Error(`目标文件 ${targetFilename} 文件已存在！`);
+    throw new Error(`目标文件 ${targetFilename} 文件已存在！`)
   }
 
   copySync(
     resolve(TEMPLATE_FILES_PATH, sourceFilename),
     resolve(CWD_PATH, targetFilename),
-  );
+  )
 }
 
 function baseWritePackageJson(
   options: AddOptions,
   overridePackageJsonObj: unknown,
 ) {
-  const packageJsonPath = resolve(CWD_PATH, "package.json");
-  const packageJsonString = readFileSync(packageJsonPath, "utf-8");
-  const packageJsonObj = JSON.parse(packageJsonString);
-  const newPackageJson = merge(packageJsonObj, overridePackageJsonObj);
-  writeFileSync(packageJsonPath, JSON.stringify(newPackageJson, null, 2));
+  const packageJsonPath = resolve(CWD_PATH, "package.json")
+  const packageJsonString = readFileSync(packageJsonPath, "utf-8")
+  const packageJsonObj = JSON.parse(packageJsonString)
+  const newPackageJson = merge(packageJsonObj, overridePackageJsonObj)
+  writeFileSync(packageJsonPath, JSON.stringify(newPackageJson, null, 2))
 }
