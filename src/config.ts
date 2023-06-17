@@ -13,7 +13,7 @@ export const TEMPLATE_FILES_PATH = resolve(ROOT_PATH, "template-files");
 export const VERSION = getVersion();
 
 function getVersion() {
-  const packageJsonPath = resolve(CWD_PATH, "package.json");
+  const packageJsonPath = resolve(ROOT_PATH, "package.json");
   const packageJsonString = readFileSync(packageJsonPath, "utf-8");
   const packageJsonObj = JSON.parse(packageJsonString);
   return packageJsonObj.version;
