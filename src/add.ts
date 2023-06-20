@@ -39,6 +39,8 @@ export async function add(options: AddOptions) {
 }
 
 const enum AddType {
+  vscode = "vscode",
+
   editorconfig = "editorconfig",
 
   gitattributes = "gitattributes",
@@ -63,6 +65,9 @@ const ADD_ACTIONS: Record<
     overridePackageJsonInfo?: unknown
   }
 > = {
+  [AddType.vscode]: {
+    overrideFiles: [".vscode"],
+  },
   [AddType.editorconfig]: {
     overrideFiles: [".editorconfig"],
   },
