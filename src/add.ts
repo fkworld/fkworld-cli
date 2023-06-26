@@ -103,7 +103,7 @@ const ADD_ACTIONS: Record<
     },
   },
   [AddType.commitlint]: {
-    overrideFiles: [".commitlintrc.cjs"],
+    overrideFiles: [".commitlintrc.json"],
     overridePackageJsonInfo: {
       scripts: {
         "lint:commitlint": "commitlint",
@@ -115,7 +115,7 @@ const ADD_ACTIONS: Record<
     },
   },
   [AddType.lintstaged]: {
-    overrideFiles: [".lintstagedrc.cjs"],
+    overrideFiles: [".lintstagedrc.json"],
     overridePackageJsonInfo: {
       scripts: {
         "lint:lint-staged": "lint-staged",

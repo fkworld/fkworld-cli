@@ -19,7 +19,5 @@ ignore:
   - .husky
   - .vscode
   - README.md
-  - .commitlintrc.cjs
-  - .lintstagedrc.cjs
   - template-files
   - templates
